@@ -53,13 +53,14 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
 
-        return view('admin.categories.edit', compact('category'));
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     public function update(Request $request, Category $category)
     {
         $request->validate([
-
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id
         ], [
             'name.required' => __('Category name is required!')
