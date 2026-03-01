@@ -32,12 +32,11 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string|max:255|unique:categories,name'
         ], [
-            'name.required' => 'Nama kategori wajib diisi!',
-            'name.unique' => 'Nama kategori sudah digunakan, silakan pilih yang lain.'
+            'name.required' => __('Category name is required!'),
+            'name.unique' => __('Category name has already been taken, please choose another.')
         ]);
 
 
@@ -48,7 +47,7 @@ class CategoryController extends Controller
 
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori Knalpot berhasil ditambahkan!');
+            ->with('success', __('Exhaust category has been added successfully!'));
     }
 
     public function edit(Category $category)
@@ -63,7 +62,7 @@ class CategoryController extends Controller
 
             'name' => 'required|string|max:255|unique:categories,name,' . $category->id
         ], [
-            'name.required' => 'Nama kategori wajib diisi!'
+            'name.required' => __('Category name is required!')
         ]);
 
         $category->update([
@@ -72,19 +71,19 @@ class CategoryController extends Controller
         ]);
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori Knalpot berhasil diperbarui!');
+            ->with('success', __('Exhaust category has been updated successfully!'));
     }
 
     public function destroy(Category $category)
     {
         if ($category->products()->count() > 0) {
             return redirect()->route('admin.categories.index')
-                ->with('error', 'Kategori gagal dihapus karena masih memiliki produk knalpot!');
+                ->with('error', __('Category could not be deleted because it still has associated products!'));
         }
 
         $category->delete();
 
         return redirect()->route('admin.categories.index')
-            ->with('success', 'Kategori berhasil dihapus!');
+            ->with('success', __('Category has been deleted successfully!'));
     }
 }
