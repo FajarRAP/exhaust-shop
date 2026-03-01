@@ -26,6 +26,11 @@ class Product extends Model
         return Number::currency($this->price, 'IDR', locale: 'id_ID', precision: 0);
     }
 
+    public function publicImageUrl(): string
+    {
+        return asset("storage/{$this->image}");
+    }
+
     public function isStockEmpty(): bool
     {
         return $this->stock <= 0;
