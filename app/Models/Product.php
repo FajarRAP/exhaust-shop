@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Number;
 
 class Product extends Model
 {
@@ -19,6 +20,16 @@ class Product extends Model
         'stock',
         'image'
     ];
+
+    public function priceDisplay(): string
+    {
+        return Number::currency($this->price, 'IDR', locale: 'id_ID', precision: 0);
+    }
+
+    public function isStockEmpty(): bool
+    {
+        return $this->stock <= 0;
+    }
 
     public function category()
     {
