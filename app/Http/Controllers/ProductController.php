@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Traits\HasPagination;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     use HasPagination;
+
+    public function __construct(protected Filesystem $storage) {}
 
     protected function targetModel(): string
     {
@@ -88,7 +90,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             if ($this->fileExists($product->image)) {
-                Storage::disk('public')->delete($product->image);
+                $this->storage->delete($product->image);
             }
 
             $data['image'] = $request->file('image')->store('products', 'public');
@@ -103,7 +105,7 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         if ($this->fileExists($product->image)) {
-            Storage::disk('public')->delete($product->image);
+            $this->storage->delete($product->image);
         }
 
         $product->delete();
@@ -112,8 +114,8 @@ class ProductController extends Controller
             ->with('success', __('Product has been deleted successfully!'));
     }
 
-    private function fileExists(string $path): bool
+    private function fileExists(?string $path): bool
     {
-        return $path && Storage::disk('public')->exists($path);
+        return $path && $this->storage->exists($path);
     }
 }
