@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Traits\HasPagination;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+    use HasPagination;
+
+    protected function targetModel(): string
+    {
+        return Category::class;
+    }
+
     public function index()
     {
-        $categories = Category::latest()->get();
+        $categories = $this->paginate();
 
-        return view('admin.categories.index', compact('categories'));
+        return view('admin.categories.index', [
+            'categories' => $categories
+        ]);
     }
 
     public function create()
