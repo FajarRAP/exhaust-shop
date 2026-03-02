@@ -22,8 +22,8 @@
 
                 <td class="px-6 py-4">
                     @if ($product->image)
-                        <img class="h-16 w-16 rounded object-cover shadow-sm" src="{{ asset($product->image) }}"
-                            alt="{{ $product->name }}">
+                        <img class="h-16 w-16 rounded object-cover shadow-sm"
+                            src="{{ $product->publicImageUrl() }}"alt="{{ $product->name }}">
                     @else
                         <div
                             class="flex h-16 w-16 items-center justify-center rounded bg-gray-100 text-xs text-gray-500 shadow-sm">
