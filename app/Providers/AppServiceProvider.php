@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\ProductController;
+use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +22,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->app
+            ->when(ProductController::class)
+            ->needs(Filesystem::class)
+            ->give(fn() => Storage::disk('public'));
     }
 }
