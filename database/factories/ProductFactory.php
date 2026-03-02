@@ -22,7 +22,7 @@ class ProductFactory extends Factory
             'description' => fake()->paragraph(),
             'price' => fake()->numberBetween(10000, 100000),
             'stock' => fake()->numberBetween(0, 100),
-            'image' => 'storage/products/certificate.jpg'
+            'image' => 'products/certificate.jpg'
         ];
     }
 }
