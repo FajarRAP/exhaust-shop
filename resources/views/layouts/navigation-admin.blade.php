@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                         {{ __('Products') }}
                     </x-nav-link>
+                    <x-nav-link class="text-green-600" :href="route('customer.dashboard')">
+                        {{ __('See Product Panel') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -90,6 +93,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('admin.products.index')" :active="request()->routeIs('admin.products.*')">
                 {{ __('Products') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('customer.dashboard')">
+                {{ __('See Product Panel') }}
             </x-responsive-nav-link>
         </div>
 
