@@ -16,7 +16,11 @@ class CartController extends Controller
             ->get();
 
         return view('cart.index', [
-            'carts' => $carts
+            'carts' => $carts,
+            'cartsCount' => $carts->count(),
+            'totalPrice' => $carts->sum(
+                fn($item) => $item->product->price * $item->quantity
+            )
         ]);
     }
 
