@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardController;
@@ -25,6 +26,13 @@ Route::middleware('auth')->group(function () {
         ->name('customer.dashboard');
     Route::get('products/{slug}', ProductDetailController::class)
         ->name('customer.products.show');
+
+    Route::get('cart', [CartController::class, 'index'])
+        ->name('customer.cart.index');
+    Route::post('cart', [CartController::class, 'store'])
+        ->name('customer.cart.store');
+    Route::delete('cart/{cart}', [CartController::class, 'destroy'])
+        ->name('customer.cart.destroy');
 });
 
 Route::prefix('admin')

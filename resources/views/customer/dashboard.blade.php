@@ -39,8 +39,10 @@
 
                                 <div class="mt-4">
                                     @if ($product->stock > 0)
-                                        <form action="#" method="POST">
+                                        <form action="{{ route('customer.cart.store') }}" method="POST">
                                             @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="quantity" value="1">
                                             <x-primary-button class="capitalize! w-full justify-center">
                                                 {{ __('Add to Cart') }}
                                             </x-primary-button>
