@@ -32,7 +32,8 @@
                                 {{ $product->name }}</h1>
                             <p class="mt-4 text-3xl font-bold text-gray-900">{{ $product->priceDisplay() }}</p>
 
-                            <form class="mt-8 border-t border-gray-100 pt-8" action="#" method="POST">
+                            <form class="mt-8 border-t border-gray-100 pt-8" action="{{ route('customer.cart.store') }}"
+                                method="POST">
                                 @csrf
                                 <input name="product_id" type="hidden" value="{{ $product->id }}">
 
