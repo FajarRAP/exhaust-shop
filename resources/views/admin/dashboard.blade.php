@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Exhaust Shop Admin Dashboard') }}
@@ -75,4 +75,4 @@
 
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>
