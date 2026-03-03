@@ -66,7 +66,7 @@
                                 </div>
                             </div>
 
-                            <form action="#" method="POST">
+                            <form action="{{ route('customer.checkout') }}" method="POST">
                                 @csrf
                                 <x-primary-button class="w-full justify-center px-4 py-3.5" type="submit">
                                     {{ __('Proceed to Checkout') }}
