@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         $products = Product::with('category')->latest()->paginate(12);
 
-        return view('dashboard', [
+        return view('customer.dashboard', [
             'products' => $products
         ]);
     }
