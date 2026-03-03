@@ -15,7 +15,7 @@ class CartController extends Controller
             ->latest()
             ->get();
 
-        return view('customer.cart.index', [
+        return view('cart.index', [
             'carts' => $carts
         ]);
     }
