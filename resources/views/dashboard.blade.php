@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-12" x-data="{ product: {} }">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                 @forelse ($products as $product)
@@ -13,8 +13,11 @@
                         class="flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md">
                         <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                             @if ($product->image)
-                                <img class="h-48 w-full object-cover object-center"
-                                    src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
+                                <img class="h-48 w-full object-cover object-center" src="{{ $product->publicImageUrl() }}"
+                                    alt="{{ $product->name }}"
+                                    x-on:click.prevent="
+                                    product = {{ json_encode(['name' => $product->name, 'image' => $product->publicImageUrl()]) }}
+                                    $dispatch('open-modal', 'view-product-image')">
                             @else
                                 <div class="flex h-48 w-full items-center justify-center bg-gray-100 text-gray-400">
                                     {{ __('No Image') }}
@@ -61,5 +64,28 @@
                 {{ $products->links('components.pagination.pagination') }}
             </div>
         </div>
+
+        <x-modal name="view-product-image" focusable>
+            <div class="p-6">
+                <div class="mb-4 flex items-center justify-between">
+                    <h2 class="text-lg font-medium text-gray-900">
+                        {{ __('Product Photo') }}
+                    </h2>
+                    <button class="text-gray-400 hover:text-gray-500 focus:outline-none" type="button"
+                        x-on:click="$dispatch('close')">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="flex justify-center">
+                    <img class="max-h-[70vh] max-w-full rounded-md object-contain shadow-sm"
+                        x-bind:src="product.image" x-bind:alt="product.name">
+                </div>
+            </div>
+        </x-modal>
     </div>
 </x-app-layout>
