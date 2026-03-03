@@ -19,11 +19,14 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
         ]);
 
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'user',
+            'email' => 'user@example.com',
+            'role' => 'customer'
+        ]);
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@example.com',
         ]);
     }
 }
