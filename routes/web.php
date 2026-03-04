@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductDetailController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +35,14 @@ Route::middleware('auth')->group(function () {
         ->name('customer.cart.store');
     Route::delete('cart/{cart}', [CartController::class, 'destroy'])
         ->name('customer.cart.destroy');
+
+    Route::post('checkout', [CheckoutController::class, 'checkout'])
+        ->name('customer.checkout');
+
+    Route::get('orders', [OrderController::class, 'index'])
+        ->name('customer.orders.index');
+    Route::get('orders/{invoice_number}', [OrderController::class, 'show'])
+        ->name('customer.orders.show');
 });
 
 Route::prefix('admin')
