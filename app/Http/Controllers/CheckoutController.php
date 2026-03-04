@@ -60,7 +60,7 @@ class CheckoutController extends Controller
 
         $order->update(['snap_token' => $snapToken]);
 
-        return redirect()->route('customer.orders.show', ['order' => $order->id])
+        return redirect()->route('customer.orders.show', ['invoice_number' => $order->invoice_number])
             ->with('success', __('Checkout successful! Your order is being processed.'));
     }
 
