@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\DashboardAdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProductController;
@@ -33,6 +34,9 @@ Route::middleware('auth')->group(function () {
         ->name('customer.cart.store');
     Route::delete('cart/{cart}', [CartController::class, 'destroy'])
         ->name('customer.cart.destroy');
+
+    Route::post('checkout', [CheckoutController::class, 'checkout'])
+        ->name('customer.checkout');
 });
 
 Route::prefix('admin')
