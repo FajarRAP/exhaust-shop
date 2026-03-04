@@ -50,17 +50,17 @@ class CheckoutController extends Controller
             return $newOrder;
         });
 
-        $params = array(
-            'transaction_details' => array(
+        $params = [
+            'transaction_details' => [
                 'order_id' => $order->invoice_number,
                 'gross_amount' => $order->total_price,
-            ),
-        );
+            ]
+        ];
         $snapToken = \Midtrans\Snap::getSnapToken($params);
 
         $order->update(['snap_token' => $snapToken]);
 
-        return redirect()->route('customer.checkout.show', ['order' => $order->id])
+        return redirect()->route('customer.orders.show', ['order' => $order->id])
             ->with('success', __('Checkout successful! Your order is being processed.'));
     }
 
