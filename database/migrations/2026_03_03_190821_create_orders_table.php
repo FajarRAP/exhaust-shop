@@ -25,7 +25,8 @@ return new class extends Migration
 
             $table->string('snap_token')
                 ->nullable();
-            $table->string('payment_method');
+            $table->string('payment_method')
+                ->nullable();
             $table->timestamps();
         });
     }
