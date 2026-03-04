@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('customer.cart.index')" :active="request()->routeIs('customer.cart.index')">
                         {{ __('Cart') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('customer.orders.index')" :active="request()->routeIs('customer.orders.index')">
+                        {{ __('Orders') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -90,6 +93,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('customer.cart.index')" :active="request()->routeIs('customer.cart.index')">
                 {{ __('Cart') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('customer.orders.index')" :active="request()->routeIs('customer.orders.index')">
+                {{ __('Orders') }}
             </x-responsive-nav-link>
         </div>
 
