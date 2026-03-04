@@ -26,4 +26,4 @@
 @endphp
 
 <span
-    class="{{ $badgeClass }} inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset">{{ $text }}</span>
+    {{ $attributes->merge(['class' => "$badgeClass inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset"]) }}>{{ $text }}</span>
