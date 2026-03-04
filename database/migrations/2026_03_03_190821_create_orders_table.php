@@ -20,7 +20,7 @@ return new class extends Migration
                 ->unique();
             $table->integer('total_price');
 
-            $table->enum('status', ['pending', 'paid', 'cancelled', 'expired'])
+            $table->enum('status', ['pending', 'paid', 'cancelled', 'expired', 'failed'])
                 ->default('pending');
 
             $table->string('snap_token')
