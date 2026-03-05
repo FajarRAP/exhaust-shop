@@ -51,16 +51,18 @@
                             {{ Number::currency($order->total_price, 'IDR', locale: 'id_ID', precision: 0) }}</p>
                     </div>
 
-                    <div class="mt-6 md:mt-0">
-                        @if ($order->status == 'pending' && $order->snap_token)
-                            <x-primary-button class="rounded-lg px-8 py-3 font-bold text-white shadow-lg transition"
-                                id="pay-button">
-                                {{ __('Pay Now') }}
-                            </x-primary-button>
-                        @elseif($order->status == 'pending' && !$order->snap_token)
-                            <p class="text-sm text-red-500">{{ __('Waiting for Midtrans Token...') }}</p>
-                        @endif
-                    </div>
+                    @if ($order->status == 'pending')
+                        <div class="mt-6 md:mt-0">
+                            @if ($order->snap_token)
+                                <x-primary-button class="rounded-lg px-8 py-3 font-bold text-white shadow-lg transition"
+                                    id="pay-button">
+                                    {{ __('Pay Now') }}
+                                </x-primary-button>
+                            @elseif(!$order->snap_token)
+                                <p class="text-sm text-red-500">{{ __('Waiting for Midtrans Token...') }}</p>
+                            @endif
+                        </div>
+                    @endif
                 </div>
 
             </div>
