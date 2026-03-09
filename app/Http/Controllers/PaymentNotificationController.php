@@ -35,7 +35,22 @@ class PaymentNotificationController extends Controller
 
         Log::info('Processing Order', ['order_id' => $orderId, 'transaction_status' => $transactionStatus]);
 
-        $order->status = $this->determineOrderStatus($transactionStatus);
+        $oldStatus = $order->getOriginal('status');
+        $newStatus =  $this->determineOrderStatus($transactionStatus);
+        if ($newStatus) {
+            $order->status = $newStatus;
+        }
+        
+        if ($this->isTransactionFailure($newStatus)) {
+            if (!$this->isTransactionFailure($oldStatus)) {
+                foreach ($order->orderDetails as $detail) {
+                    if ($detail->product_id) {
+                        $detail->product->increment('stock', $detail->quantity);
+                    }
+                }
+                Log::info('Stock restored for order', ['order_id' => $orderId]);
+            }
+        }
 
         if ($paymentType) {
             $order->payment_method = $paymentType;
@@ -80,5 +95,10 @@ class PaymentNotificationController extends Controller
                 Log::warning('Unknown transaction status', ['status' => $transactionStatus]);
                 return null;
         }
+    }
+
+    private function isTransactionFailure(string $modelStatus)
+    {
+        return in_array($modelStatus, ['failed', 'cancelled', 'expired']);
     }
 }
