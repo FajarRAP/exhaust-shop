@@ -11,7 +11,7 @@
                 @forelse ($products as $product)
                     <a href="{{ route('customer.products.show', ['slug' => $product->slug]) }}">
                         <div
-                            class="flex flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md">
+                            class="flex min-h-96 flex-col overflow-hidden rounded-lg border border-gray-100 bg-white shadow-sm transition-shadow hover:shadow-md">
                             <div class="aspect-w-1 aspect-h-1 w-full overflow-hidden bg-gray-200">
                                 @if ($product->image)
                                     <img class="h-48 w-full object-cover object-center"
@@ -41,8 +41,8 @@
                                     @if ($product->stock > 0)
                                         <form action="{{ route('customer.cart.store') }}" method="POST">
                                             @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <input type="hidden" name="quantity" value="1">
+                                            <input name="product_id" type="hidden" value="{{ $product->id }}">
+                                            <input name="quantity" type="hidden" value="1">
                                             <x-primary-button class="capitalize! w-full justify-center">
                                                 {{ __('Add to Cart') }}
                                             </x-primary-button>
