@@ -43,6 +43,7 @@ class CheckoutController extends Controller
                     'price' => $cart->product->price,
                     'quantity' => $cart->quantity,
                 ]);
+                $cart->product->decrement('stock', $cart->quantity);
             }
 
             Cart::where('user_id', $request->user()->id)->delete();

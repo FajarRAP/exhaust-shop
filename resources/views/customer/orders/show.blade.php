@@ -79,21 +79,25 @@
             <script type="text/javascript">
                 const payButton = document.getElementById('pay-button');
                 payButton.addEventListener('click', function() {
-                    snap.pay('{{ $order->snap_token }}', {
-                        onSuccess: function(result) {
-                            alert("{{ __('Payment successful!') }}");
-                            window.location.reload();
-                        },
-                        onPending: function(result) {
-                            alert("{{ __('Waiting for your payment.') }}");
-                        },
-                        onError: function(result) {
-                            alert("{{ __('Payment failed!') }}");
-                        },
-                        onClose: function() {
-                            console.log('User closed the payment popup without completing the payment');
-                        }
-                    });
+                    try {
+                        snap.pay('{{ $order->snap_token }}', {
+                            onSuccess: function(result) {
+                                alert("{{ __('Payment successful!') }}");
+                                window.location.reload();
+                            },
+                            onPending: function(result) {
+                                alert("{{ __('Waiting for your payment.') }}");
+                            },
+                            onError: function(result) {
+                                alert("{{ __('Payment failed!') }}");
+                            },
+                            onClose: function() {
+                                console.log('User closed the payment popup without completing the payment');
+                            }
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
                 });
             </script>
         @endpush
